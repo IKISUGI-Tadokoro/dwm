@@ -78,7 +78,8 @@ static char dmenumon[2] =
 static const char *dmenucmd[] = {
     "dmenu_run", "-m",  dmenumon, "-fn", dmenufont,  "-nb", col_dark0, "-nf",
     col_light1,  "-sb", col_blue, "-sf", col_light0, NULL};
-static const char *termcmd[] = {"st", NULL};
+static const char *termcmd[] = {"st", "-e", "tmux", "new-session",
+                                "-A", "-s", "main", NULL};
 
 static const char *screenshotcmd[] = {
     "sh", "-c", "maim -s | xclip -selection clipboard -t image/png", NULL};
