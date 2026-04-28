@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx = 1; /* border pixel of windows */
@@ -15,10 +16,10 @@ static const int systraypinningfailfirst =
 static const int showsystray = 1; /* 0 means no systray */
 static const int showbar = 1;     /* 0 means no bar */
 static const int topbar = 1;      /* 0 means bottom bar */
-// static const char *fonts[] = {"Moralerspace Krypton HWJPDOC:size=10"};
-// static const char dmenufont[] = "Moralerspace Krypton HWJPDOC:size=10";
-static const char *fonts[] = {"monospace:size=10"};
-static const char dmenufont[] = "monospace:size=10";
+static const char *fonts[] = {"Moralerspace Krypton HWJPDOC:size=10"};
+static const char dmenufont[] = "Moralerspace Krypton HWJPDOC:size=10";
+// static const char *fonts[] = {"monospace:size=10"};
+// static const char dmenufont[] = "monospace:size=10";
 
 static const char col_dark0[] = "#282828";
 static const char col_dark2[] = "#504945";
@@ -64,16 +65,16 @@ static const Layout layouts[] = {
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
-      {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
-      {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
-      {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},
+    {MODKEY, KEY, view, {.ui = 1 << TAG}},                                     \
+        {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},             \
+        {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                      \
+        {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd)                                                             \
-  {                                                                            \
-    .v = (const char *[]) { "/bin/sh", "-c", cmd, NULL }                       \
-  }
+    {                                                                          \
+        .v = (const char *[]) { "/bin/sh", "-c", cmd, NULL }                   \
+    }
 
 /* commands */
 static char dmenumon[2] =
@@ -83,6 +84,18 @@ static const char *dmenucmd[] = {
     col_light1,  "-sb", col_blue, "-sf", col_light0, NULL};
 static const char *termcmd[] = {"st", "-e", "tmux", "new-session",
                                 "-A", "-s", "main", NULL};
+static const char *volupcmd[] = {
+    "wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", "-l", "1.0", NULL};
+
+static const char *voldowncmd[] = {"wpctl", "set-volume",
+                                   "@DEFAULT_AUDIO_SINK@", "5%-", NULL};
+
+static const char *volmutecmd[] = {"wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@",
+                                   "toggle", NULL};
+
+static const char *brightupcmd[] = {"brightnessctl", "set", "5%+", NULL};
+
+static const char *brightdowncmd[] = {"brightnessctl", "set", "5%-", NULL};
 
 static const char *screenshotcmd[] = {
     "sh", "-c", "maim -s | xclip -selection clipboard -t image/png", NULL};
@@ -94,8 +107,7 @@ static const char *screenshot_save_cmd[] = {
     NULL};
 
 static const char *touchpadtogglecmd[] = {
-	"/home/iksg/.local/bin/toggle-touchpad", NULL
-};
+    "/home/iksg/.local/bin/toggle-touchpad", NULL};
 
 static const Key keys[] = {
     /* modifier                     key        function        argument */
@@ -128,6 +140,12 @@ static const Key keys[] = {
      spawn,
      {.v = screenshot_save_cmd}}, // screenshot then save
     {ControlMask, XK_m, spawn, {.v = touchpadtogglecmd}}, // toggle touchpad
+    {0, XF86XK_AudioRaiseVolume, spawn, {.v = volupcmd}},
+    {0, XF86XK_AudioLowerVolume, spawn, {.v = voldowncmd}},
+    {0, XF86XK_AudioMute, spawn, {.v = volmutecmd}},
+
+    {0, XF86XK_MonBrightnessUp, spawn, {.v = brightupcmd}},
+    {0, XF86XK_MonBrightnessDown, spawn, {.v = brightdowncmd}},
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
         TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
             TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_e, quit, {0}},
