@@ -15,8 +15,11 @@ static const int systraypinningfailfirst =
 static const int showsystray = 1; /* 0 means no systray */
 static const int showbar = 1;     /* 0 means no bar */
 static const int topbar = 1;      /* 0 means bottom bar */
-static const char *fonts[] = {"Moralerspace Krypton HWJPDOC:size=10"};
-static const char dmenufont[] = "Moralerspace Krypton HWJPDOC:size=10";
+// static const char *fonts[] = {"Moralerspace Krypton HWJPDOC:size=10"};
+// static const char dmenufont[] = "Moralerspace Krypton HWJPDOC:size=10";
+static const char *fonts[] = {"monospace:size=10"};
+static const char dmenufont[] = "monospace:size=10";
+
 static const char col_dark0[] = "#282828";
 static const char col_dark2[] = "#504945";
 static const char col_light1[] = "#ebdbb2";
@@ -90,6 +93,10 @@ static const char *screenshot_save_cmd[] = {
     "maim -s \"$HOME/Pictures/Screenshots/$(date +%Y%m%d-%H%M%S).png\"",
     NULL};
 
+static const char *touchpadtogglecmd[] = {
+	"/home/iksg/.local/bin/toggle-touchpad", NULL
+};
+
 static const Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_d, spawn, {.v = dmenucmd}},
@@ -120,6 +127,7 @@ static const Key keys[] = {
      XK_Print,
      spawn,
      {.v = screenshot_save_cmd}}, // screenshot then save
+    {ControlMask, XK_m, spawn, {.v = touchpadtogglecmd}}, // toggle touchpad
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
         TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
             TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_e, quit, {0}},
