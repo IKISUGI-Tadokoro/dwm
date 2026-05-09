@@ -21,7 +21,7 @@ static const char dmenufont[] = "Moralerspace Krypton HWJPDOC:size=10";
 // static const char *fonts[] = {"monospace:size=10"};
 // static const char dmenufont[] = "monospace:size=10";
 
-#include "themes/gruv_light.h"
+#include "themes/gruv_dark.h"
 
 static const char *colors[][3] = {
 	/*               fg         bg         border   */
