@@ -21,7 +21,7 @@ static const char dmenufont[] = "Moralerspace Krypton HWJPDOC:size=10";
 // static const char *fonts[] = {"monospace:size=10"};
 // static const char dmenufont[] = "monospace:size=10";
 
-#include "themes/latte.h"
+#include "themes/gruv_light.h"
 
 static const char *colors[][3] = {
 	/*               fg         bg         border   */
@@ -113,7 +113,7 @@ static const Key keys[] = {
 	{MODKEY, XK_b, togglebar, {0}},
 	{MODKEY, XK_j, focusstack, {.i = +1}},
 	{MODKEY, XK_k, focusstack, {.i = -1}},
-	{MODKEY, XK_i, incnmaster, {.i = +1}},
+	//    {MODKEY, XK_i, incnmaster, {.i = +1}},
 	//    {MODKEY, XK_d, incnmaster, {.i = -1}},
 	{MODKEY, XK_h, setmfact, {.f = -0.05}},
 	{MODKEY, XK_l, setmfact, {.f = +0.05}},
