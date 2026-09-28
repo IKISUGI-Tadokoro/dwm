@@ -106,9 +106,9 @@ static const char *screenshot_save_cmd[] = {
 static const char *touchpadtogglecmd[] = {
 	"/home/iksg/.local/bin/toggle-touchpad", NULL};
 
-static const char *zencmd[]     = { "zen", NULL };
+static const char *zencmd[]     = { "/home/iksg/.local/bin/zen", NULL };
 
-static const char *spotifycmd[] = { "spotify", NULL };
+static const char *spotifycmd[] = { "/usr/bin/spotify", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
