@@ -21,7 +21,7 @@ static const char dmenufont[] = "Moralerspace Krypton HWJPDOC:size=10";
 // static const char *fonts[] = {"monospace:size=10"};
 // static const char dmenufont[] = "monospace:size=10";
 
-#include "themes/gruv_light.h"
+#include "themes/gruv_dark.h"
 
 static const char *colors[][3] = {
 	/*               fg         bg         border   */
@@ -106,6 +106,10 @@ static const char *screenshot_save_cmd[] = {
 static const char *touchpadtogglecmd[] = {
 	"/home/iksg/.local/bin/toggle-touchpad", NULL};
 
+static const char *zencmd[]     = { "zen", NULL };
+
+static const char *spotifycmd[] = { "spotify", NULL };
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{MODKEY, XK_d, spawn, {.v = dmenucmd}},
@@ -146,6 +150,8 @@ static const Key keys[] = {
 	TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
 		TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
 			TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_e, quit, {0}},
+    { MODKEY, XK_z, spawn, {.v = zencmd } },
+    { MODKEY, XK_s, spawn, {.v = spotifycmd } },
 };
 
 /* button definitions */
