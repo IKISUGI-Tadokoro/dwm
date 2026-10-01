@@ -16,12 +16,10 @@ static const int systraypinningfailfirst =
 static const int showsystray = 1; /* 0 means no systray */
 static const int showbar = 1;	  /* 0 means no bar */
 static const int topbar = 1;	  /* 0 means bottom bar */
-static const char *fonts[] = {"Moralerspace Krypton HWJPDOC:size=10"};
-static const char dmenufont[] = "Moralerspace Krypton HWJPDOC:size=10";
-// static const char *fonts[] = {"monospace:size=10"};
-// static const char dmenufont[] = "monospace:size=10";
+static const char *fonts[] = {"0xProto Nerd Font Mono:pixelsize=13", "Noto Sans CJK JP:pixelsize=13"};
+static const char dmenufont[] = "0xProto Nerd Font Mono:pixelsize=13";
 
-#include "themes/gruv_dark.h"
+#include "themes/latte.h"
 
 static const char *colors[][3] = {
 	/*               fg         bg         border   */
@@ -140,7 +138,7 @@ static const Key keys[] = {
 	 XK_Print,
 	 spawn,
 	 {.v = screenshot_save_cmd}}, // screenshot then save
-	{ControlMask, XK_m, spawn, {.v = touchpadtogglecmd}}, // toggle touchpad
+	{MODKEY | ShiftMask, XK_m, spawn, {.v = touchpadtogglecmd}}, // toggle touchpad
 	{0, XF86XK_AudioRaiseVolume, spawn, {.v = volupcmd}},
 	{0, XF86XK_AudioLowerVolume, spawn, {.v = voldowncmd}},
 	{0, XF86XK_AudioMute, spawn, {.v = volmutecmd}},

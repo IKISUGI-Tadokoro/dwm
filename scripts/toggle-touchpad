@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# Toggle only the actual touchpad, not the companion mouse or TrackPoint.
+
+dev_id=$(
+    xinput list |
+        awk -F'id=' '
+        tolower($0) ~ /touchpad/ {
+            split($2, a, /[ \t]/)
+            print a[1]
+            exit
+        }
+    '
+)
+
+if [ -z "$dev_id" ]; then
+    printf 'toggle-touchpad: touchpad device not found\n' >&2
+    xinput list >&2
+    exit 1
+fi
+
+state=$(
+    xinput list-props "$dev_id" |
+        awk -F: '
+        /libinput Send Events Mode Enabled/ {
+            gsub(/[ \t]/, "", $2)
+            print $2
+            exit
+        }
+    '
+)
+
+if [ -z "$state" ]; then
+    printf 'toggle-touchpad: Send Events property not found for device id %s\n' "$dev_id" >&2
+    xinput list-props "$dev_id" >&2
+    exit 1
+fi
+
+case "$state" in
+"0,0")
+    # Disable touchpad events
+    xinput set-prop "$dev_id" "libinput Send Events Mode Enabled" 1 0
+    ;;
+*)
+    # Enable touchpad events
+    xinput set-prop "$dev_id" "libinput Send Events Mode Enabled" 0 0
+
+    # Re-apply preferences
+    xinput set-prop "$dev_id" "libinput Tapping Enabled" 1 2>/dev/null
+    xinput set-prop "$dev_id" "libinput Natural Scrolling Enabled" 1 2>/dev/null
+    ;;
+esac
